@@ -15,7 +15,7 @@ ezButton lower_limit(LOW_LIMIT_PIN); // lower limit switch
 int yValue = 0; // To store value of the Y axis
 int bValue = 0; // To store value of the button
 int bState = 0; // To store state of button
-int pwm = 200;
+int pwm = 240;
 int clickCount = 0; // to check for double click
 int speedState = 1;
 
@@ -46,7 +46,7 @@ void joystick(){
     Serial.println("Up Y");
     driveUp();
     yValue = analogRead(VRY_PIN);
-    limitSwitch();
+    //limitSwitch();
   }
   stopMotor();
 
@@ -55,7 +55,7 @@ void joystick(){
     Serial.print(pwm);
     driveDown();
     yValue = analogRead(VRY_PIN);
-    limitSwitch();
+    //limitSwitch();
   }
   stopMotor();
   
@@ -73,24 +73,24 @@ void joystick(){
 
 void driveUp(){
   analogWrite(ENB, pwm); //PWM to control speed (min=0, max=255) 
-  digitalWrite(motor1pin1,  HIGH);
-  digitalWrite(motor1pin2, LOW);
+  digitalWrite(motor1pin1,  LOW);
+  digitalWrite(motor1pin2, HIGH);
 }
 
 void driveDown(){
   analogWrite(ENB, pwm); //PWM to control speed (min=0, max=255) 
-  digitalWrite(motor1pin1,  LOW);
-  digitalWrite(motor1pin2, HIGH);
+  digitalWrite(motor1pin1,  HIGH);
+  digitalWrite(motor1pin2, LOW);
 }
 
 int changeSpeed(){
   if (speedState==0){
     speedState=1;
-    return 200;
+    return 240;
   }
   else if(speedState==1){
     speedState=2;
-    return 230;
+    return 248;
   }
   else{
     speedState=0;
@@ -113,18 +113,19 @@ void limitSwitch(){
   if(upperState == 0){
     Serial.print("GO DOWN");
     stopMotor();
-    delay(10);
+    delay(1000);
     driveDown();
-    delay(200);
+    delay(800);
   }
 
   if(lowerState == 0){
     Serial.print("GO UP");
     stopMotor();
-    delay(10);
+    delay(1000);
     driveUp();
-    delay(200);
+    delay(800);
   }
 
-  delay(100);
+  delay(190);
 }
+
