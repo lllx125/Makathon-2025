@@ -126,6 +126,6 @@ void limitSwitch(){
     delay(800);
   }
 
-  delay(100);
+  delay(190);
 }
 
